@@ -6,8 +6,6 @@ let picture;
 let file;
 
 $(document).ready(function() {
-    let btnSave = $('#btnSave');
-
     dateBox = $('#date');
     txtWeight = $('#weight');
     picture = $('#picture');
@@ -17,27 +15,25 @@ $(document).ready(function() {
     dateBox.attr('value', currDate.format("YYYY-MM-DD"));
     dateBox.attr('max', currDate.format("YYYY-MM-DD"));
 
-
-    // btnSave.click(function() {
-    //     save();
-    // });
-
     dateBox.change(handleDateChange);
-    file.change(handleFileChange)
+
+    txtWeight.change(saveValues);
+    file.change(saveValues)
 
     // Initially load date of today
     handleDateChange();    
 });
 
 function handleDateChange() {
-    console.log(dateBox);
     const value = moment(dateBox.val());
     const entryText = localStorage.getItem(value.format('YYYY-MM-DD'));
     
+    loadDefaultValues();
     if (entryText) {
         const entry = JSON.parse(entryText);
         
         loadImageTo(entry.image);
+        txtWeight.val(entry.weight);
     }
 }
 
@@ -62,9 +58,26 @@ function loadImageTo(image) {
     $('#picture').attr('src', image);
 }
 
-function save() {
-    checkValues();
-    database.save();
+function loadDefaultValues() {
+    document.getElementById("weight").value = "";
+    $('#picture').attr('src', "./Images/default-placeholder.png");
+}
+
+function saveValues(event) {
+    const input = event.target;
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const entryData = JSON.stringify({ image: e.target.result, weight: txtWeight.val() });
+            localStorage.setItem(moment(dateBox.val()).format('YYYY-MM-DD'), entryData);
+
+            loadImageTo(e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 function checkValues() {
