@@ -4,12 +4,14 @@ let dateBox;
 let txtWeight;
 let picture;
 let file;
+let btnSave;
 
 $(document).ready(function() {
     dateBox = $('#date');
     txtWeight = $('#weight');
     picture = $('#picture');
     file = $('#file');
+    btnSave = $('#btnSave');
 
     // Zu Beginn, soll das aktuelle Datum geladen werden.
     dateBox.attr('value', currDate.format("YYYY-MM-DD"));
@@ -19,6 +21,8 @@ $(document).ready(function() {
 
     txtWeight.change(saveValues);
     file.change(saveValues)
+
+    btnSave.click(saveValues);
 
     // Initially load date of today
     handleDateChange();    
@@ -33,7 +37,7 @@ function handleDateChange() {
         const entry = JSON.parse(entryText);
         
         loadImageTo(entry.image);
-        txtWeight.val(entry.weight);
+        document.getElementById("weight").value = entry.weight;
     }
 }
 
@@ -65,7 +69,7 @@ function loadDefaultValues() {
 
 function saveValues(event) {
     const input = event.target;
-
+console.log(event.target);
     if (input.files && input.files[0]) {
         const reader = new FileReader();
 
