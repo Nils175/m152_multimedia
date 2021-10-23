@@ -9,6 +9,7 @@
   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="./logik.js"></script>
 
 <body>
@@ -16,36 +17,71 @@
         <div class="row justify-content-md-center m-2">
             <h1>Projektarbeit</h1>
         </div>
+
+        <div id="pnlFields" style="display: block">
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <label for="date">Datum:</label>
+                    <input type="date" id="date" name="date" value="" min="1840-01-01" max="9999-12-31">
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <label for="weight">Gewicht:</label>
+                    <input type="number" id="weight" name="weight" value="" min="0">
+                </div>
+            </div>
         
-        <div class="row justify-content-md-center m-2">
-            <div class="col-sm">
-                <label for="date">Datum:</label>
-                <input type="date" id="date" name="date" value="" min="1840-01-01" max="9999-12-31">
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <img id="picture" src="./Images/default-placeholder.png" width="400" />
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <input type="file" id="file" />
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <button id="btnSave" class="btn btn-primary">Speichern</button>
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <button id="btnCreateGraph" class="btn btn-primary">Graph erstellen</button>
+                    <button id="btnCreateCollage" class="btn btn-primary">Collage erstellen</button>
+                </div>
             </div>
         </div>
 
-        <div class="row justify-content-md-center m-2">
-            <div class="col-sm">
-                <label for="weight">Gewicht:</label>
-                <input type="text" id="weight" name="weight" value="">
+
+        <div id="pnlExport" style="display: none">
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <button id="btnSwitchToErfassen" class="btn btn-primary m-2">Erfassungsfelder anzeigen</button>
+                </div>
             </div>
-        </div>
-    
-        <div class="row justify-content-md-center m-2">
-            <div class="col-sm">
-                <img id="picture" src="./Images/default-placeholder.png" width="400" />
-            </div>
+
+            <div class="row justify-content-md-center m-2">
+                <div>
+                    <label for="date">Datum von</label>
+                    <input type="date" id="dateVon" name="dateVon" value="" min="1840-01-01" max="9999-12-31">
+                    <label for="date">bis</label>
+                    <input type="date" id="dateBis" name="dateBis" value="" min="1840-01-01" max="9999-12-31">
+                    <button id="btnShowDataExportGraph" style="display: none" class="btn btn-primary m-2">Daten anzeigen</button>
+                    <button id="btnShowDataExportCollage" style="display: none" class="btn btn-primary m-2">Daten anzeigen</button>
+                </div>
+            </div>            
         </div>
 
-        <div class="row justify-content-md-center m-2">
-            <div class="col-sm">
-                <input type="file" id="file" />
-            </div>
-        </div>
-
-        <div class="row justify-content-md-center m-2">
-            <button id="btnSave" class="btn btn-primary">Speichern</button>
-        </div>
+        
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+        
     </div>
 </body>
 
