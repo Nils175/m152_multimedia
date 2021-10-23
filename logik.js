@@ -115,7 +115,6 @@ function saveValues() {
     if (newFileSrc == "") {
         newFileSrc = defaultImage;
     }
-
     const entryData = JSON.stringify({ image: newFileSrc, weight: newWeight });
     localStorage.setItem(moment(dateBox.val()).format('YYYY-MM-DD'), entryData);
 }
@@ -138,13 +137,13 @@ function createGraph() {
         axisY:{
             title: "Price (in USD)",
             includeZero: true,
-            valueFormatString: "$#0"
+            valueFormatString: "#0"
         },
         data: [{        
             type: "line",
             markerSize: 12,
             xValueFormatString: "MMM, YYYY",
-            yValueFormatString: "$###.#",
+            yValueFormatString: "###.#",
             dataPoints: dataArrayForExport
         }]
     });
