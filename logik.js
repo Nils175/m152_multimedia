@@ -17,7 +17,7 @@ $(document).ready(function() {
     let btnCreateCollage = $('#btnCreateCollage');
     let btnShowDataExportGraph = $("#btnShowDataExportGraph");
     let btnShowDataExportCollage = $("#btnShowDataExportCollage");
-    let btnSwitchToErfassen = $("btnSwitchToErfassen");
+    let btnSwitchToErfassen = $("#btnSwitchToErfassen");
     
     dateBox = $('#date');
     txtWeight = $('#weight');
@@ -111,12 +111,19 @@ function loadDefaultValues() {
 }
 
 function saveValues() {
-    // Falls newFileSrc leer, soll default-Placeholder gespeichert werden. Da sonst kein Bild gespeichert wird.
-    if (newFileSrc == "") {
-        newFileSrc = defaultImage;
+    try {
+        // Falls newFileSrc leer, soll default-Placeholder gespeichert werden. Da sonst kein Bild gespeichert wird.
+        if (newFileSrc == "") {
+            newFileSrc = defaultImage;
+        }
+        const entryData = JSON.stringify({ image: newFileSrc, weight: newWeight });
+        localStorage.setItem(moment(dateBox.val()).format('YYYY-MM-DD'), entryData);
+
+        alert("Speichern war erfolgreich");
+    } catch {
+        alert("Beim Speichern ist ein Fehler passier, versuchen Sie es nochmal");
     }
-    const entryData = JSON.stringify({ image: newFileSrc, weight: newWeight });
-    localStorage.setItem(moment(dateBox.val()).format('YYYY-MM-DD'), entryData);
+    
 }
 
 function createGraph() {
@@ -135,7 +142,7 @@ function createGraph() {
             valueFormatString: "DD.MM"
         },
         axisY:{
-            title: "Price (in USD)",
+            title: "Gewicht",
             includeZero: true,
             valueFormatString: "#0"
         },
