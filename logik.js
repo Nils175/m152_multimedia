@@ -128,7 +128,6 @@ function saveValues() {
 
 function createGraph() {
     let dataArrayForExport = loadWeightArray();
-    console.log(dataArrayForExport);
 
     let chart = new CanvasJS.Chart("chartContainer", {
         theme: "light2", 
